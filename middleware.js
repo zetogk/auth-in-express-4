@@ -35,7 +35,31 @@ authMW.JWTAuth = (req, res, next) => {
 };
 
 authMW.basicAuth = (req, res, next) => {
-	
+	let auth = req.headers['authorization'];
+	if(!auth) {
+		res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
+		res.status(401).json({message:'error', detail:'Auth is required'});
+	}
+	else{
+		let tipoAuth = auth.split(' ')[0]; //Basic
+		if(tipoAuth == 'Basic'){
+			let tmpBuffer = new Buffer(auth.split(' ')[1], 'base64');
+			let datosAuth = tmpBuffer.toString(); // usuario:contraseña
+			let credenciales = datosAuth.split(':');
+			let usuario = credenciales[0];
+			let contrasena = credenciales[1];
+			if(usuario=='zetogk' && contrasena=='12345'){
+				console.log('Auth OK');
+				next();
+			}else{
+				res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
+				res.status('401').json({message:'error', detail:'credentials are invalid'});
+			}
+		} else {
+			res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
+			res.status('401').json({message:'error', detail:'Auth should be: Basic'});
+		}
+	}
 };
 
 module.exports = authMW;

@@ -40,6 +40,34 @@ app.delete('/user-no-auth/:n', (req, res) => {
 });
 /* FOR NO AUTH*/
 
+/* FOR BASIC*/
+app.get('/user-basic-auth', (req, res) => {
+	res.status(200).json({message:'ok', user:req.public_name, users:users});
+})
+
+app.get('/user-basic-auth/:n', (req, res) => {
+	let n = (req.params.n)-1;
+	if (n < users.length) { res.status(200).json({message:'ok', user:users[n]}); }
+	else { res.status(200).json({message:'error', detail:'not found'}); }
+});
+
+app.post('/user-basic-auth/', (req, res) => {
+	res.status(200).json({message:'ok', detail:'The user has been added'});
+});
+
+app.put('/user-basic-auth/:n', (req, res) => {
+	res.status(200).json({message:'ok', detail:'The user has been updated'});
+});
+
+app.patch('/user-basic-auth/:n', (req, res) => {
+	res.status(200).json({message:'ok', detail:'The user has been updated with the method patch'});
+});
+
+app.delete('/user-basic-auth/:n', (req, res) => {
+	res.status(200).json({message:'ok', detail:'The user has been deleted'});
+});
+/* FOR BASIC*/
+
 /* FOR JWT*/
 app.post('/login-jwt', (req, res) => {
 	let data = req.body;
