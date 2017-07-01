@@ -13,57 +13,57 @@ const CONFIG = { secret:'superultrasecret' };
 let userInDB = { user:'zetogk', password:'12345', public_name:'ZE67sjdGK' };
 
 /* FOR NO AUTH*/
-app.get('/user-no-auth', (req, res) => {
+app.get('/users-no-auth', (req, res) => {
 	res.status(200).json({message:'ok', user:req.public_name, users:users});
 })
 
-app.get('/user-no-auth/:n', (req, res) => {
+app.get('/users-no-auth/:n', (req, res) => {
 	let n = (req.params.n)-1;
 	if (n < users.length) { res.status(200).json({message:'ok', user:users[n]}); }
 	else { res.status(200).json({message:'error', detail:'not found'}); }
 });
 
-app.post('/user-no-auth/', (req, res) => {
+app.post('/users-no-auth/', (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been added'});
 });
 
-app.put('/user-no-auth/:n', (req, res) => {
+app.put('/users-no-auth/:n', (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been updated'});
 });
 
-app.patch('/user-no-auth/:n', (req, res) => {
+app.patch('/users-no-auth/:n', (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been updated with the method patch'});
 });
 
-app.delete('/user-no-auth/:n', (req, res) => {
+app.delete('/users-no-auth/:n', (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been deleted'});
 });
 /* FOR NO AUTH*/
 
 /* FOR BASIC*/
-app.get('/user-basic-auth', authMW.basicAuth, (req, res) => {
+app.get('/users-basic-auth', authMW.basicAuth, (req, res) => {
 	res.status(200).json({message:'ok', user:req.public_name, users:users});
 })
 
-app.get('/user-basic-auth/:n', authMW.basicAuth, (req, res) => {
+app.get('/users-basic-auth/:n', authMW.basicAuth, (req, res) => {
 	let n = (req.params.n)-1;
 	if (n < users.length) { res.status(200).json({message:'ok', user:users[n]}); }
 	else { res.status(200).json({message:'error', detail:'not found'}); }
 });
 
-app.post('/user-basic-auth/', authMW.basicAuth, (req, res) => {
+app.post('/users-basic-auth/', authMW.basicAuth, (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been added'});
 });
 
-app.put('/user-basic-auth/:n', authMW.basicAuth, (req, res) => {
+app.put('/users-basic-auth/:n', authMW.basicAuth, (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been updated'});
 });
 
-app.patch('/user-basic-auth/:n', authMW.basicAuth, (req, res) => {
+app.patch('/users-basic-auth/:n', authMW.basicAuth, (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been updated with the method patch'});
 });
 
-app.delete('/user-basic-auth/:n', authMW.basicAuth, (req, res) => {
+app.delete('/users-basic-auth/:n', authMW.basicAuth, (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been deleted'});	
 });
 /* FOR BASIC*/
@@ -81,29 +81,29 @@ app.post('/login-jwt', (req, res) => {
 	}
 })
 
-app.get('/user-jwt', authMW.JWTAuth, (req, res) => {
+app.get('/users-jwt', authMW.JWTAuth, (req, res) => {
 	res.status(200).json({message:'ok', user:req.public_name, users:users});
 })
 
-app.get('/user-jwt/:n', authMW.JWTAuth, (req, res) => {
+app.get('/users-jwt/:n', authMW.JWTAuth, (req, res) => {
 	let n = (req.params.n)-1;
 	if (n < users.length) { res.status(200).json({message:'ok', user:users[n]}); }
 	else { res.status(200).json({message:'error', detail:'not found'}); }
 });
 
-app.post('/user-jwt/', authMW.JWTAuth, (req, res) => {
+app.post('/users-jwt/', authMW.JWTAuth, (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been added'});
 });
 
-app.put('/user-jwt/:n', authMW.JWTAuth, (req, res) => {
+app.put('/users-jwt/:n', authMW.JWTAuth, (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been updated'});
 });
 
-app.patch('/user-jwt/:n', authMW.JWTAuth, (req, res) => {
+app.patch('/users-jwt/:n', authMW.JWTAuth, (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been updated with the method patch'});
 });
 
-app.delete('/user-jwt/:n', authMW.JWTAuth, (req, res) => {
+app.delete('/users-jwt/:n', authMW.JWTAuth, (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been deleted'});
 });
 /* FOR JWT*/
