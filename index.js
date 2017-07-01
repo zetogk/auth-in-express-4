@@ -13,29 +13,29 @@ const CONFIG = { secret:'superultrasecret' };
 let userInDB = { user:'zetogk', password:'12345', public_name:'ZE67sjdGK' };
 
 /* FOR NO AUTH*/
-app.get('/user-no-auth', (req, res) => {
+app.get('/user-no-auth', authMW.basicAuth, (req, res) => {
 	res.status(200).json({message:'ok', user:req.public_name, users:users});
 })
 
-app.get('/user-no-auth/:n', (req, res) => {
+app.get('/user-no-auth/:n', authMW.basicAuth, (req, res) => {
 	let n = (req.params.n)-1;
 	if (n < users.length) { res.status(200).json({message:'ok', user:users[n]}); }
 	else { res.status(200).json({message:'error', detail:'not found'}); }
 });
 
-app.post('/user-no-auth/', (req, res) => {
+app.post('/user-no-auth/', authMW.basicAuth, (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been added'});
 });
 
-app.put('/user-no-auth/:n', (req, res) => {
+app.put('/user-no-auth/:n', authMW.basicAuth, (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been updated'});
 });
 
-app.patch('/user-no-auth/:n', (req, res) => {
+app.patch('/user-no-auth/:n', authMW.basicAuth, (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been updated with the method patch'});
 });
 
-app.delete('/user-no-auth/:n', (req, res) => {
+app.delete('/user-no-auth/:n', authMW.basicAuth, (req, res) => {
 	res.status(200).json({message:'ok', detail:'The user has been deleted'});
 });
 /* FOR NO AUTH*/
