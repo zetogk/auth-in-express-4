@@ -11,7 +11,7 @@ authMW.JWTAuth = (req, res, next) => {
 		res.status(401).json({message:'error', detail:'Auth is required'});
 	} else {
 		let tipoAuth = auth.split(' ')[0]; //Bearer
-		if(tipoAuth == 'Bearer'){
+		if(tipoAuth == 'Bearer' || tipoAuth == 'bearer' || tipoAuth == 'BEARER'){
 			let token = auth.split(' ')[1];
 			let decoded;
 
@@ -29,7 +29,7 @@ authMW.JWTAuth = (req, res, next) => {
 
 		} else {
 			res.setHeader('WWW-Authenticate', 'Bearer realm="Secure Area"');
-			res.status('401').json({message:'error', detail:'Auth should be: Bearer'});
+			res.status('401').json({message:'error', detail:'Auth should be: Bearer, bearer or BEARER'});
 		} //END ELSE tipoAuth=='Bearer'
 	}
 };
@@ -42,7 +42,7 @@ authMW.basicAuth = (req, res, next) => {
 	}
 	else{
 		let tipoAuth = auth.split(' ')[0]; //Basic
-		if(tipoAuth == 'Basic'){
+		if(tipoAuth == 'Basic' || tipoAuth == 'basic' || tipoAuth == 'BASIC'){
 			let tmpBuffer = new Buffer(auth.split(' ')[1], 'base64');
 			let datosAuth = tmpBuffer.toString(); // usuario:contraseña
 			let credenciales = datosAuth.split(':');
@@ -57,7 +57,7 @@ authMW.basicAuth = (req, res, next) => {
 			}
 		} else {
 			res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
-			res.status('401').json({message:'error', detail:'Auth should be: Basic'});
+			res.status('401').json({message:'error', detail:'Auth should be: Basic, basic or BASIC'});
 		}
 	}
 };
