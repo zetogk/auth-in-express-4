@@ -10,7 +10,7 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 const CONFIG = { secret:'superultrasecret' };
-let userInDB = { user:'zetogk', password:'12345', public_name:'ZE67sjdGK' };
+let userInDB = { user:'zetogk', email:'zetogk@gmail.com', password:'12345', public_name:'ZE67sjdGK' };
 
 /* FOR NO AUTH*/
 app.get('/users-no-auth', (req, res) => {
@@ -71,7 +71,7 @@ app.delete('/users-basic-auth/:n', authMW.basicAuth, (req, res) => {
 /* FOR JWT*/
 app.post('/login-jwt', (req, res) => {
 	let data = req.body;
-	if(data.user==userInDB.user && data.password==userInDB.password){
+	if((data.user==userInDB.user || data.email==userInDB.email) && data.password==userInDB.password){
 		let payload = { public_name: userInDB.public_name };
 		let token = jwt.encode(payload, CONFIG.secret, 'HS256');
 		res.status(200).json({message:'ok', token});
